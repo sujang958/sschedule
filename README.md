@@ -6,7 +6,6 @@
 
 ```sh
 $ yarn set version berry
-$ rm -rf ./node_modules
 $ yarn
-$ yarn dlx @yarnpkg/sdks vscode
+$ yarn dlx @yarnpkg/sdks vscode # Optional: If you don't use VS-Code, you don't have to run this.
 ```
