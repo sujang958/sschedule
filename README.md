@@ -10,6 +10,9 @@ $ yarn
 $ yarn dlx @yarnpkg/sdks vscode # Optional: If you don't use VS-Code, you don't have to run this.
 ```
 
+#### VSCode  
+Install ZipFS Extension
+
 ### PR & Issues
 
 **Always Welcome!**
