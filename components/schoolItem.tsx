@@ -4,8 +4,8 @@ import { motion } from "framer-motion"
 const SchoolItem: FC<{
   schoolName: string
   schoolSite: string
-  schoolAdress: string
-}> = ({ schoolAdress, schoolName, schoolSite }) => {
+  schoolAddress: string
+}> = ({ schoolAddress, schoolName, schoolSite }) => {
   return (
     <div className="px-2 py-4 flex flex-col rounded shadow-xl">
       <div className="px-0.5">
@@ -15,8 +15,8 @@ const SchoolItem: FC<{
           </a>
         </p>
       </div>
-      <div className="px-1.5 pt-0.5">
-        <p className="text-base break-all">{schoolAdress}</p>
+      <div className="flex-1 px-1.5 pt-0.5">
+        <p className="text-base break-all">{schoolAddress}</p>
       </div>
       <div className="pt-2">
         <motion.button

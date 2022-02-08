@@ -6,7 +6,7 @@ const Header: FC = () => {
 
   return (
     <div className="bg-white flex flex-col items-center shadow-lg py-4">
-      <div className="max-w-6xl w-full flex flex-row items-center justify-between">
+      <div className="max-w-3xl w-full flex flex-row items-center justify-between">
         <div className="cursor-pointer">
           <p className="text-2xl font-bold">시간표</p>
         </div>
@@ -65,7 +65,7 @@ const Header: FC = () => {
           <div className="cursor-pointer">
             <motion.svg
               whileHover={{ scale: 1.25 }}
-              whileTap={{ y: 6 }}
+              whileTap={{ y: -6 }}
               xmlns="http://www.w3.org/2000/svg"
               className="h-5 w-5"
               viewBox="0 0 20 20"

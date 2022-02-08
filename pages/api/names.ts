@@ -6,7 +6,7 @@ export default async function namesHandler(
   res: NextApiResponse<ErrorResponse | any[]>
 ) {
   res.setHeader("Content-Type", "application/json")
-  const { name } = req.query
+  const { name, onlyName } = req.query
   const apiRes = await fetch(
     `https://open.neis.go.kr/hub/schoolInfo?type=JSON&key=${
       process.env.API_KEY
@@ -19,5 +19,7 @@ export default async function namesHandler(
       message: json.RESULT.MESSAGE ?? "error",
     })
   const schools: any[] = json.schoolInfo[1].row
-  return res.status(200).json(schools.map((v) => v.SCHUL_NM))
+  return res
+    .status(200)
+    .json(onlyName ? schools.map((v) => v.SCHUL_NM) : schools)
 }

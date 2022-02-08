@@ -1,14 +1,36 @@
 import { motion } from "framer-motion"
 import type { NextPage } from "next"
-import { useEffect, useState } from "react"
+import { useCallback, useEffect, useState } from "react"
 import SchoolItem from "../components/schoolItem"
 
 const Home: NextPage = () => {
   const [inputName, setInputName] = useState("")
   const [alikeNames, setAlikeNames] = useState<string[]>([])
+  const [schools, setSchools] = useState<
+    {
+      scCode: string
+      code: string
+      name: string
+      address: string
+      link: string
+    }[]
+  >([])
+  const getSchools = useCallback(async () => {
+    const APIRes = await fetch(`/api/names?name=${inputName}`)
+    const json: any[] = await APIRes.json()
+    setSchools(
+      json.map((v) => ({
+        scCode: v.ATPT_OFCDC_SC_CODE,
+        code: v.SD_SCHUL_CODE,
+        name: v.SCHUL_NM,
+        address: v.ORG_RDNMA,
+        link: v.HMPG_ADRES,
+      }))
+    )
+  }, [schools])
   useEffect(() => {
     const getSchoolNames = async () => {
-      const names = await fetch(`/api/names?name=${inputName}`)
+      const names = await fetch(`/api/names?name=${inputName}&onlyName=1`)
       const json = await names.json()
       if (json.statusCode) return
       setAlikeNames(json)
@@ -19,7 +41,7 @@ const Home: NextPage = () => {
 
   return (
     <div className="pt-20 flex flex-col items-center w-full min-h-screen">
-      <div className="flex flex-col max-w-6xl w-full">
+      <div className="flex flex-col max-w-3xl w-full">
         <div className="py-6 flex flex-col items-center border-b border-black">
           <div className="px-2 flex flex-row">
             <input
@@ -35,7 +57,10 @@ const Home: NextPage = () => {
                 <option key={i} value={v} />
               ))}
             </datalist>
-            <button className="p-3 -ml-1 bg-black rounded-r">
+            <button
+              className="p-3 -ml-1 bg-black rounded-r"
+              onClick={getSchools}
+            >
               <motion.svg
                 whileTap={{ scale: 1.25, rotate: 360 }}
                 xmlns="http://www.w3.org/2000/svg"
@@ -51,13 +76,15 @@ const Home: NextPage = () => {
             </button>
           </div>
         </div>
-        <div className="py-5 px-4 flex flex-col">
-          <div className="grid grid-cols-4 gap-2">
-            <SchoolItem
-              schoolAdress="미국 캘리포니아 실리콘벨리"
-              schoolName="구글고등학교"
-              schoolSite="https://google.com"
-            />
+        <div className="py-5 px-3 flex flex-col">
+          <div className="grid grid-cols-3 gap-2">
+            {schools.map((school) => (
+              <SchoolItem
+                schoolAddress={school.address}
+                schoolName={school.name}
+                schoolSite={school.link}
+              />
+            ))}
           </div>
         </div>
       </div>
